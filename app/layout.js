@@ -3,6 +3,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const fontSans = Plus_Jakarta_Sans({
@@ -39,11 +40,7 @@ export default function RootLayout({ children }) {
           >
             <Header />
             <main className="min-h-screen bg-white pt-16">{children}</main>
-            <footer className="border-t border-gray-100 bg-white py-10">
-              <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-                <p>© {new Date().getFullYear()} Medivo. All rights reserved.</p>
-              </div>
-            </footer>
+            <Footer />
             <Toaster richColors position="top-center" />
           </ThemeProvider>
         </body>
