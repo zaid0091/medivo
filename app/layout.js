@@ -1,45 +1,50 @@
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 import Header from "@/components/header";
-import { dark } from "@clerk/themes";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+});
 
 export const metadata = {
-  title: "Doctors Appointment App",
-  description: "Connect with doctors anytime, anywhere",
+  title: "Medivo — Connect with doctors anytime, anywhere",
+  description:
+    "Book appointments, consult via video, and manage your healthcare journey.",
+  icons: {
+    icon: "/logo-single.png",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider
       appearance={{
-        baseTheme: dark,
+        variables: {
+          colorPrimary: "#059669",
+          borderRadius: "0.75rem",
+        },
       }}
     >
       <html lang="en" suppressHydrationWarning>
-        <head>
-          <link rel="icon" href="/logo.png" sizes="any" />
-        </head>
-        <body className={`${inter.className}`}>
+        <body className={`${fontSans.variable} font-sans`}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
-            enableSystem
+            defaultTheme="light"
+            enableSystem={false}
             disableTransitionOnChange
           >
             <Header />
-            <main className="min-h-screen pt-16">{children}</main>
-            <Toaster richColors />
-
-            <footer className="bg-muted/50 py-12">
-              <div className="container mx-auto px-4 text-center text-gray-200">
-                <p>Made with 💗 by RoadsideCoder</p>
+            <main className="min-h-screen bg-white pt-16">{children}</main>
+            <footer className="border-t border-gray-100 bg-white py-10">
+              <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
+                <p>© {new Date().getFullYear()} Medivo. All rights reserved.</p>
               </div>
             </footer>
+            <Toaster richColors position="top-center" />
           </ThemeProvider>
         </body>
       </html>

@@ -7,65 +7,79 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Check } from "lucide-react";
 
 const PLANS = [
   {
     id: "free_user",
     name: "Basic",
-    price: "Free",
+    price: "$0",
+    period: "",
     credits: "2 credits on signup",
-    description: "Get started with essential consultations",
-    featured: false,
+    description: "Perfect for trying out the platform",
+    features: [
+      "Video consultations",
+      "Verified doctors",
+      "Secure medical records",
+    ],
   },
   {
     id: "standard",
     name: "Standard",
-    price: "$19/mo",
-    credits: "10 credits / month",
-    description: "Best for regular healthcare needs",
-    featured: true,
+    price: "$19",
+    period: "/month",
+    credits: "10 credits monthly",
+    description: "Ideal for regular healthcare needs",
+    features: ["Everything in Basic", "Priority booking", "Email support"],
   },
   {
     id: "premium",
     name: "Premium",
-    price: "$39/mo",
-    credits: "24 credits / month",
-    description: "For families and frequent consultations",
-    featured: false,
+    price: "$39",
+    period: "/month",
+    credits: "24 credits monthly",
+    description: "For families and frequent visits",
+    features: ["Everything in Standard", "Family sharing", "Premium support"],
   },
 ];
 
 export function PricingFallback() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid gap-6 md:grid-cols-3">
       {PLANS.map((plan) => (
         <Card
           key={plan.id}
-          className={`border-emerald-900/30 ${
-            plan.featured ? "ring-2 ring-emerald-600/50" : ""
-          }`}
+          className="flex flex-col border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md"
         >
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-white">{plan.name}</CardTitle>
-              {plan.featured && (
-                <Badge className="bg-emerald-600 text-white">Popular</Badge>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg font-semibold text-foreground">
+              {plan.name}
+            </CardTitle>
+            <div className="mt-2 flex items-baseline gap-1">
+              <span className="text-4xl font-bold text-foreground">
+                {plan.price}
+              </span>
+              {plan.period && (
+                <span className="text-muted-foreground">{plan.period}</span>
               )}
             </div>
-            <p className="text-2xl font-bold text-emerald-400">{plan.price}</p>
-            <CardDescription>{plan.description}</CardDescription>
+            <CardDescription className="pt-2">{plan.description}</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-muted-foreground">{plan.credits}</p>
-            <Button
-              asChild
-              className={`w-full ${
-                plan.featured ? "bg-emerald-600 hover:bg-emerald-700" : ""
-              }`}
-              variant={plan.featured ? "default" : "outline"}
-            >
-              <Link href="/sign-up">Get Started</Link>
+          <CardContent className="flex flex-1 flex-col space-y-5">
+            <p className="text-sm font-medium text-emerald-600">{plan.credits}</p>
+            <ul className="flex-1 space-y-2">
+              {plan.features.map((feature) => (
+                <li
+                  key={feature}
+                  className="flex items-center gap-2 text-sm text-muted-foreground"
+                >
+                  <Check className="h-4 w-4 shrink-0 text-emerald-600" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <Button asChild className="btn-teal w-full">
+              <Link href="/sign-up">Select Plan</Link>
             </Button>
           </CardContent>
         </Card>
