@@ -103,6 +103,3 @@ Open `http://localhost:3000` to view the app.
 
 Contributions are welcome. Feel free to open issues or pull requests for features, bug fixes, or documentation enhancements.
 
-## 📄 License
-
-This project is currently private. Add a license file if you plan to publish it publicly.
